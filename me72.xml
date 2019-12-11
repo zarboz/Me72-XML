@@ -24,6 +24,10 @@ v0
 	<state name="Enabled" data="01" />
 	<state name="Disabled" data="00" />
   </table>
+  <table type="Switch" name="CWSTA" category="System Constants" sizey="1">
+	<state name="Enabled" data="01" />
+	<state name="Disabled" data="00" />
+  </table>
   <table type="Switch" name="CWDAGR" category="System Constants" sizey="1" >
 	<state name="Enabled" data="01" />
 	<state name="Disabled" data="00" />
