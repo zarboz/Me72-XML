@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<roms>
+ <rom>
+<!--
+v0
+	- draft of ME7.2
+
+	In this BASE section define all the common table data and axis attributes.
+    Leave out the ROM specific addresses.
+-->
+  <romid>
+   <xmlid>BMWME72BASE</xmlid>
+   <ecuid>1234567</ecuid>
+   <year>2000-2003</year>
+   <market>USDM</market>
+   <make>BMW</make>
+   <model>E39/E38/E53</model>
+   <submodel>ME72</submodel>
+   <transmission>MT/AT</transmission>
+   <memmodel>SAK-C167CR-LM</memmodel>
+   <filesize>512kb</filesize>
+  </romid>
+  <table type="Switch" name="SY_TURBO" category="System Constants" sizey="1" >
+	<state name="Enabled" data="01" />
+	<state name="Disabled" data="00" />
+  </table>
+  <table type="Switch" name="CWDAGR" category="System Constants" sizey="1" >
+	<state name="Enabled" data="01" />
+	<state name="Disabled" data="00" />
+	<description>System constant for EGR present </description>
+  </table>
+  <table type="Switch" name="CDEFST" category="System Constants" sizey="1" >
+	<state name="Enabled" data="01" />
+	<state name="Disabled" data="00" />
+	<description>Codeword for DFSTT (Euro coding) </description>
+  </table>
+  <table type="Switch" name="CDHSH" category="System Constants" sizey="1" >
+	<state name="Enabled" data="01" />
+	<state name="Disabled" data="00" />
+	<description>Codeword heater diagnosis behind cat</description>
+  </table>
+  <table type="Switch" name="CWOBD" category="System Constants" sizey="1" >
+	<state name="OBDII - CARB" data="01" />
+	<state name="Disabled" data="00" />
+	<state name="OBD-EPA" data="02" />
+	<state name="OBDII-CARB + OBD-EPA" data="03" />
+	<description>OBD Certification</description>
+  </table>
+  <table type="Switch" name="CDHSV" category="System Constants" sizey="1" >
+	<state name="Enabled" data="01" />
+	<state name="Disabled" data="00" />
+	<description>Codeword heater diagnosis before cat</description>
+  </table>
+  <table type="Switch" name="CDDLLR" category="System Constants" sizey="1" >
+	<state name="Enabled" data="01" />
+	<state name="Disabled" data="00" />
+	<description>Deactivate DLLR Euro Coding</description>
+  </table>
+  <table type="Switch" name="CDLSH" category="System Constants" sizey="1" >
+	<state name="Enabled" data="01" />
+	<state name="Disabled" data="00" />
+	<description>Codeword probe diagnosis behind cat in obd2 mode</description>
+  </table>
+  <table type="Switch" name="CDLSV" category="System Constants" sizey="1" >
+	<state name="Enabled" data="01" />
+	<state name="Disabled" data="00" />
+	<description>Codeword probe diagnosis before cat in obd2 mode</description>
+  </table>
+  <table type="Switch" name="CDMD" category="System Constants" sizey="1" >
+	<state name="Enabled" data="01" />
+	<state name="Disabled" data="00" />
+	<description>Codeword misfire detection mode</description>
+  </table>
+  <table type="Switch" name="CDDNWS" category="System Constants" sizey="1" >
+	<state name="Enabled" data="01" />
+	<state name="Disabled" data="00" />
+	<description>Euro Coding</description>
+  </table>
+  <table type="Switch" name="CWDKAT" category="System Constants" sizey="1" >
+	<state name="Enabled" data="01" />
+	<state name="Disabled" data="00" />
+	<description>Codeword catalyst diagnosis in obd2 mode</description>
+  </table>
+  <table type="Switch" name="CWDKVS" category="System Constants" sizey="1" >
+	<state name="Enabled" data="01" />
+	<state name="Disabled" data="00" />
+	<description>Codeword fuel-on adaptation</description>
+  </table>
+  <table type="Switch" name="CWDTES" category="System Constants" sizey="1" >
+	<state name="Enabled" data="01" />
+	<state name="Disabled" data="00" />
+	<description>Codeword disable canister purge monitoring</description>
+  </table>
+  <table type="Switch" name="CWDMTL" category="System Constants" sizey="1" >
+	<state name="Enabled" data="01" />
+	<state name="Disabled" data="00" />
+	<description>Codeword DMTL monitoring</description>
+  </table>
+  <table type="2D" name="MLOFS - Offset for HFM" category="Air Flow" storagetype="uint16" endian="little" sizey="1" userlevel="1">
+	<scaling units="KG/H" expression="x*.1" to_byte="x/.1"  format="00.00" fineincrement="1" coarseincrement="1" />
+	<table type="Y Axis" name="" storagetype="uint8">
+		<scaling units="" expression="x*.1" to_byte="x/.1" format="0" fineincrement="1" coarseincrement="10" />
+	</table>
+	<description>MLOFS MAF offset. For Bosch MAFs, it should be 200. For Hitachi, 0. Subtracted from the output of MLHFM.</description>
+  </table>
+  <table type="3D" name="Base Ignition table bank 1" category="Ignition" storagetype="uint8" sizex="16" sizey="24" userlevel="1">
+      <scaling units="(°) BTDC" expression="(x*.75)-23.6" to_byte="(x+23.6)/.75" format="0.00" fineincrement=".1" coarseincrement="1"></scaling>
+      <table type="X Axis" name="MAF Load" storagetype="uint16"  logparam="E2">
+        <scaling units="mg/stroke" expression="x*.75" to_byte="x/.75" format="#" fineincrement="1" coarseincrement="10" />
+      </table>
+      <table type="Y Axis" name="Engine Speed" storagetype="uint8" logparam="P8">
+        <scaling units="RPM" expression="x*40" to_byte="x/40" format="0" fineincrement="50" coarseincrement="100" />
+      </table>
+      <description>Ignition map bank 1</description>
+    </table>
+  <table type="3D" name="Base Ignition table bank 2" category="Ignition" storagetype="uint8" sizex="16" sizey="24" userlevel="1">
+      <scaling units="" expression="x" to_byte="x" format="0.00" fineincrement=".1" coarseincrement="1"></scaling>
+      <table type="X Axis" name="" storagetype="uint8" logparam="E2">
+        <scaling units="mg/stroke" expression="x*.75" to_byte="x/.75" format="#" fineincrement="1" coarseincrement="10" />
+      </table>
+      <table type="Y Axis" name="Engine Speed" storagetype="uint8" logparam="P8">
+        <scaling units="RPM" expression="x*40" to_byte="x/40" format="0" fineincrement="50" coarseincrement="100" />
+      </table>
+      <description>Ignition map bank 2</description>
+    </table>
+  <table type="3D" name="Optimal Ignition table bank 1" category="Ignition" storagetype="uint8" sizex="16" sizey="16" userlevel="1">
+      <scaling units="" expression="x" to_byte="x" format="0.00" fineincrement=".1" coarseincrement="1"></scaling>
+      <table type="X Axis" name="" storagetype="uint16" endian="little" logparam="E2">
+        <scaling units="mg/stroke" expression="x/42.67" to_byte="x*42.67" format="#" fineincrement="1" coarseincrement="10" />
+      </table>
+      <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="little" logparam="P8">
+        <scaling units="RPM" expression="x/4" to_byte="x*4" format="0" fineincrement="50" coarseincrement="100" />
+      </table>
+      <description>Optimal Ignition bank 1</description>
+    </table>  
+  <table type="3D" name="Optimal Ignition table bank 2" category="Ignition" storagetype="uint8" sizex="16" sizey="16" userlevel="1">
+      <scaling units="" expression="x" to_byte="x" format="0.00" fineincrement=".1" coarseincrement="1"></scaling>
+      <table type="X Axis" name="" storagetype="uint8" endian="little" logparam="E2">
+        <scaling units="mg/stroke" expression="x/42.67" to_byte="x*42.67" format="#" fineincrement="1" coarseincrement="10" />
+      </table>
+      <table type="Y Axis" name="Engine Speed" storagetype="uint16"  endian="little" logparam="P8">
+        <scaling units="RPM" expression="x/4" to_byte="x*4" format="0" fineincrement="50" coarseincrement="100" />
+      </table>
+      <description>Optimal Ignition bank 2</description>
+    </table>
+  <table type="2D" name="Base ignition RPM" category="Ignition" storagetype="uint8" sizey="24" userlevel="1">
+	<scaling units="RPM" expression="x*40" to_byte="x/40"  format="0" fineincrement="1" coarseincrement="1" />
+	<table type="Y Axis" name="Unk" storagetype="uint8">
+		<scaling units="RPM" expression="x*40" to_byte="x/40" format="0" fineincrement="1" coarseincrement="10" />
+	</table>
+	<description>This table are the RPM steps associated with the ignition tables. You can alter the RPM used in the tables stock program allows this</description>
+  </table>
+  <table type="3D" name="Full load optimial ignition" category="Ignition" storagetype="uint8" sizex="3" sizey="24" userlevel="1">
+      <scaling units="" expression="x*.75" to_byte="x/.75" format="0.00" fineincrement=".1" coarseincrement="1"></scaling>
+      <table type="X Axis" name="" storagetype="uint8" logparam="E2">
+        <scaling units="mg/stroke" expression="x" to_byte="x" format="#" fineincrement="1" coarseincrement="10" />
+      </table>
+      <table type="Y Axis" name="Engine Speed" storagetype="uint8" logparam="P8">
+        <scaling units="RPM" expression="x*40" to_byte="x/40" format="0" fineincrement="50" coarseincrement="100" />
+      </table>
+      <description>Ignition map bank 2</description>
+    </table>
+  <table type="3D" name="MLHFM - Linearization of the hot-film tension" category="Air Flow" storagetype="uint16" endian="little" sizex="1" sizey="512" userlevel="1">
+      <scaling units="" expression="x*.1" to_byte="x/.1" format="0.00" fineincrement=".1" coarseincrement="1"></scaling>
+      <table type="X Axis" name="" storagetype="uint8" logparam="E2">
+        <scaling units="" expression="x" to_byte="x" format="#" fineincrement="1" coarseincrement="10" />
+      </table>
+      <table type="Y Axis" name="Voltage" storagetype="uint8" logparam="P8">
+        <scaling units="Voltage" expression="x*40" to_byte="x/40" format="0" fineincrement="50" coarseincrement="100" />
+      </table>
+      <description>MLHFM - Linearization of the hot-film tension</description>
+    </table> 
+  <table type="2D" name="DSLOFS - MAP pressure sensor offset" category="Air Flow" storagetype="uint16"  endian="little" sizey="1" userlevel="1">
+	<scaling units="hPa" expression="x*0.039063" to_byte="x/0.039063"  format="0.00" fineincrement="1" coarseincrement="1" />
+	<table type="Y Axis" name="Unk" storagetype="uint16">
+		<scaling units="RPM" expression="x*0.039063" to_byte="x/0.039063" format="0" fineincrement="1" endian="little" coarseincrement="10" />
+	</table>
+	<description>This table are the RPM steps associated with the ignition tables. You can alter the RPM used in the tables stock program allows this</description>
+  </table>
+  <table type="3D" name="KFMLDMX - HFM threshhold for B_maxflr diagnosis" category="Air Flow" storagetype="uint16" endian="little" sizex="8" sizey="8" userlevel="1">
+      <scaling units="(°) BTDC" expression="x*.1" to_byte="x/.1" format="0.00" fineincrement=".1" coarseincrement="1"></scaling>
+      <table type="X Axis" name="RPM" storagetype="uint16" endian="little" logparam="E2">
+        <scaling units="U/min" expression="x*.25" to_byte="x/.25" format="0.0" fineincrement="1" coarseincrement="10" />
+      </table>
+      <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="little" logparam="P8">
+        <scaling units="%DK" expression="0.024414*x" to_byte="x/0.024414" format="0.0" fineincrement="50" coarseincrement="100" />
+      </table>
+      <description>ML threshold for B_maxflr diagnosis HFM / HLM</description>
+    </table>
+  <table type="2D" name="MLMAX - Maximum airflow" category="Air Flow" storagetype="uint16"  endian="little" sizey="1" userlevel="1">
+	<scaling units="KG/H" expression="x*.1" to_byte="x/.1"  format="0" fineincrement="1" coarseincrement="1" />
+	<table type="Y Axis" name="" storagetype="uint16">
+		<scaling units="" expression="x" to_byte="x" format="0" fineincrement="1" endian="little" coarseincrement="10" />
+	</table>
+	<description>Maximum air flow for load calculation according to SAE J1979</description>
+  </table>
+  <table type="3D" name="MAF Sensor Scaling" category="Air Flow" storagetype="uint16" endian="little" sizex="16" sizey="32" userlevel="1">
+      <scaling units="KG/H" expression="x*.1" to_byte="x/.1" format="0.00" fineincrement=".1" coarseincrement="1"></scaling>
+      <table type="X Axis" name="RPM" storagetype="uint16" endian="little" logparam="E2">
+        <scaling units="U/min" expression="x*.25" to_byte="x/.25" format="0.0" fineincrement="1" coarseincrement="10" />
+      </table>
+      <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="little" logparam="P8">
+        <scaling units="%DK" expression="0.024414*x" to_byte="x/0.024414" format="0.0" fineincrement="50" coarseincrement="100" />
+      </table>
+      <description>ML threshold for B_maxflr diagnosis HFM / HLM</description>
+    </table>
+  <table type="3D" name="MAF Plausibility *LOWER LIMIT*" category="Air Flow" storagetype="uint16" endian="little" sizex="8" sizey="8" userlevel="1">
+      <scaling units="KG/H" expression="x*.1" to_byte="x/.1" format="0.00" fineincrement=".1" coarseincrement="1"></scaling>
+      <table type="X Axis" name="RPM" storagetype="uint16" endian="little" logparam="E2">
+        <scaling units="U/min" expression="x*.25" to_byte="x/.25" format="0.0" fineincrement="1" coarseincrement="10" />
+      </table>
+      <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="little" logparam="P8">
+        <scaling units="%DK" expression="0.024414*x" to_byte="x/0.024414" format="0.0" fineincrement="50" coarseincrement="100" />
+      </table>
+      <description>Used to compare MAF values to the lower limit.</description>
+   </table>
+  <table type="3D" name="MAF Plausibility *UPPER LIMIT*" category="Air Flow" storagetype="uint16" endian="little" sizex="8" sizey="8" userlevel="1">
+      <scaling units="KG/H" expression="x*.1" to_byte="x/.1" format="0.00" fineincrement=".1" coarseincrement="1"></scaling>
+      <table type="X Axis" name="RPM" storagetype="uint16" endian="little" logparam="E2">
+        <scaling units="U/min" expression="x*.25" to_byte="x/.25" format="0.0" fineincrement="1" coarseincrement="10" />
+      </table>
+      <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="little" logparam="P8">
+        <scaling units="%DK" expression="0.024414*x" to_byte="x/0.024414" format="0.0" fineincrement="50" coarseincrement="100" />
+      </table>
+      <description>Used to compare MAF values to the upper limit.</description>
+   </table>
+  <table type="3D" name="MAF Target filling %" category="Air Flow" storagetype="uint16" endian="little" sizex="13" sizey="16" userlevel="1">
+      <scaling units="KG/H" expression="x*.0234" to_byte="x/.0234" format="0.00" fineincrement=".1" coarseincrement="1"></scaling>
+      <table type="X Axis" name="RPM" storagetype="uint16" endian="little" logparam="E2">
+        <scaling units="U/min" expression="x*.25" to_byte="x/.25" format="0.0" fineincrement="1" coarseincrement="10" />
+      </table>
+      <table type="Y Axis" name="Engine Speed" storagetype="uint16" endian="little" logparam="P8">
+        <scaling units="%DK" expression="0.024414*x" to_byte="x/0.024414" format="0.0" fineincrement="50" coarseincrement="100" />
+      </table>
+      <description>Used to compare MAF values to the upper limit.</description>
+  </table>
+  <table type="2D" name="KRKTE" category="Fuel Injection" storagetype="uint8"  endian="big" sizey="1" userlevel="1">
+	<scaling units="ms/%" expression="x*.002133" to_byte="x/.002133"  format="0.0000" fineincrement="1" coarseincrement="1" />
+	<table type="Y Axis" name="" storagetype="uint16">
+		<scaling units="" expression="x" to_byte="x" format="0" fineincrement="1" endian="little" coarseincrement="10" />
+	</table>
+	<description>Airmass to fuel injector on time conversion based on injector size and fuel pressure (primary fueling)</description>
+  </table>	
+  <table type="2D" name="TVUB" category="Fuel Injection" storagetype="uint16"  endian="little" sizey="5" userlevel="1">
+	<scaling units="ms" expression="x*.003200" to_byte="x/.003200"  format="0.000" fineincrement="1" coarseincrement="1" />
+	<table type="Y Axis" name="Voltage" storagetype="uint8">
+		<scaling units="V" expression="x*.094200" to_byte="x/.094200" format="0" fineincrement="1" endian="little" coarseincrement="10" />
+	</table>
+	<description>voltage correction To be used in conjuction with KRKTE Injector offset dependent on voltage</description>
+  </table>
+  <table type="3D" name="Base injection map" category="Fuel Injection" storagetype="uint8" endian="big" sizex="14" sizey="12" userlevel="1">
+      <scaling units="Lambda" expression="x/128" to_byte="x*128" format="0.00" fineincrement=".1" coarseincrement="1"></scaling>
+      <table type="X Axis" name="Throttle" storagetype="uint8" endian="big" logparam="E2">
+        <scaling units="%" expression="x*.75" to_byte="x/.75" format="0.0" fineincrement="1" coarseincrement="10" />
+      </table>
+      <table type="Y Axis" name="Engine Speed" storagetype="uint8" endian="big" logparam="P8">
+        <scaling units="RPM" expression="x*40" to_byte="x/40" format="0" fineincrement="50" coarseincrement="100" />
+      </table>
+      <description>Used to compare MAF values to the upper limit.</description>
+   </table>
+  <table type="3D" name="Throttle injection map" category="Fuel Injection" storagetype="uint8" endian="big" sizex="11" sizey="12" userlevel="1">
+      <scaling units="Lambda" expression="x/128" to_byte="x*128" format="0.00" fineincrement=".1" coarseincrement="1"></scaling>
+      <table type="X Axis" name="Throttle %" storagetype="uint8" endian="big" logparam="E2">
+        <scaling units="%" expression="x*.75" to_byte="x/.75" format="0.0" fineincrement="1" coarseincrement="10" />
+      </table>
+      <table type="Y Axis" name="Engine Speed" storagetype="uint8" endian="big" logparam="P8">
+        <scaling units="RPM" expression="x*40" to_byte="x/40" format="0" fineincrement="50" coarseincrement="100" />
+      </table>
+      <description>Used to compare MAF values to the upper limit.</description>
+   </table>
+  <table type="2D" name="Full load injection map" category="Fuel Injection" storagetype="uint8"  endian="big" sizey="12" userlevel="1">
+	<scaling units="Lambda" expression="x/128" to_byte="x*128"  format="0.00" fineincrement="1" coarseincrement="1" />
+	<table type="Y Axis" name="Engine Speed" storagetype="uint8">
+		<scaling units="RPM" expression="x*40" to_byte="x/40" format="0" fineincrement="1" endian="big" coarseincrement="10" />
+	</table>
+	<description>Full load target lambda 1.99 = Lean 0.00 = Rich</description>
+  </table>
+   
+  
+	</rom>
+ <!-- it looks like the stuff above this is the table information like location and offsets conversion etc then below is to identify model specific with the address of the table based on model -->
+ <rom base="BMWME72BASE">
+<!-- This particular section is based off the 5a01 small tables bin since I know where everything is in that binary to validate offsets of items -->
+  <romid>
+   <internalidaddress>1FDA1</internalidaddress>
+   <internalidstring>NFS01</internalidstring>
+   <xmlid>430056</xmlid>
+   <ecuid>7519308</ecuid>
+   <year>2001</year>
+   <market>USDM</market>
+   <make>BMW</make>
+   <model>ME7.2 512kb</model>
+   <submodel>E39 540i</submodel>
+   <transmission>MT/AT</transmission>
+   <memmodel>SAK-C167CR-LM</memmodel>
+   <filesize>512kb</filesize>
+  </romid>
+  <table name="SY_TURBO" storageaddress="13f13" />
+  <table name="MLOFS - Offset for HFM" storageaddress="1425a" /> <!-- this is an invalid offset for the map but here for testing -->
+  <table name="Base Ignition table bank 1" storageaddress="0x10BEF">
+      <table type="X Axis" storageaddress="0x11A6E"></table>
+      <table type="Y Axis" storageaddress="0x11a17" />
+  </table>
+ </rom>
+ <rom base="BMWME72BASE">
+<!-- In this ROM specific section define only the attributes missing or that need
+     to be changed compared to the common table data and axis attributes in the BASE.
+     This will typically be the storageaddress and sometimes the size entries. -->
+  <romid>
+   <internalidaddress>1FD26</internalidaddress>
+   <internalidstring>07826RT5214</internalidstring>
+   <xmlid>430056</xmlid>
+   <ecuid>7519308</ecuid>
+   <year>2000</year>
+   <market>USDM</market>
+   <make>BMW</make>
+   <model>ME7.2 512kb</model>
+   <submodel>E39 540i</submodel>
+   <transmission>MT/AT</transmission>
+   <memmodel>SAK-C167CR-LM</memmodel>
+   <filesize>512kb</filesize>
+  </romid>
+  <table name="SY_TURBO" storageaddress="13f13" />
+  <table name="MLOFS - Offset for HFM" storageaddress="1425a" /> <!-- this is an invalid offset for the map but here for testing -->
+  <table name="Base Ignition table bank 1" storageaddress="0x10BEF">
+      <table type="X Axis"></table>
+      <table type="Y Axis" storageaddress="0x119e8" />
+  </table>
+  <table name="Base Ignition table bank 2" storageaddress="0x10D6F">
+      <table type="X Axis" ></table>
+      <table type="Y Axis" storageaddress="0x119e8" />
+  </table>
+  <table name="Optimal Ignition table bank 1" storageaddress="0x10220">
+      <table type="X Axis"></table>
+      <table type="Y Axis" storageaddress="0x1568E" />
+  </table>
+  <table name="Optimal Ignition table bank 2" storageaddress="0x10320">
+      <table type="X Axis"></table>
+      <table type="Y Axis" storageaddress="0x1568E" />
+  </table>
+  <table name="Full load optimial ignition" storageaddress="10EEF">
+	  <table type="X Axis"></table>
+	  <table type="Y Axis" storageaddress="0x119e8"/>
+  </table>
+  <table name="MLHFM - Linearization of the hot-film tension" storageaddress="1324e"/>
+  <table name="DSLOFS - MAP pressure sensor offset" storageaddress="1592D" />
+  <table name="KFMLDMX - HFM threshhold for B_maxflr diagnosis" storageaddress="1AFE0" >
+	<table type="X Axis" storageaddress="1B216"> </table>
+	<table type="Y Axis" storageaddress="1B194"/>
+  </table>
+  <table name="MAF Sensor Scaling" storageaddress="1324E">
+	<table type="X Axis"> </table>
+	<table type="Y Axis"/>
+  </table>
+  <table name="MLMAX - Maximum airflow" storageaddress="1AF5A" />
+  <table name="KRKTE" storageaddress="19cd5" />
+  <table name="TVUB" storageaddress="1592e">
+  <table type="Y Axis" storageaddress="15929"/></table>
+  <table name="Full load injection map" storageaddress="1A171">
+  <table type="Y Axis" storageaddress="1A161"/></table>
+  <table name="Base injection map" storageaddress="19E54">
+	<table type="X Axis" storageaddress="19E36"> </table>
+	<table type="Y Axis" storageaddress="1A084"/>
+  </table>
+  <table name="Throttle injection map" storageaddress="1A0A9">
+	<table type="X Axis" storageaddress="1A081"> </table>
+	<table type="Y Axis" storageaddress="19E38"/>
+  </table>
+  </rom>   
+</roms>
